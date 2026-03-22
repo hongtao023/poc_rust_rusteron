@@ -1,9 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-client-f91c83ff6d3c66c9/out/build/cmake_install.cmake",
-		"/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-client-f91c83ff6d3c66c9/out/build/aeron-client/src/main/cpp_wrapper/cmake_install.cmake",
-		"/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-client-f91c83ff6d3c66c9/out/build/aeron-client/src/main/c/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
