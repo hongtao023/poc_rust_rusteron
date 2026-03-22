@@ -1,0 +1,11 @@
+running: cd "/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-media-driver-728cef9bc73d8d64/out/build" && CMAKE_PREFIX_PATH="" LC_ALL="C" "cmake" "/Users/xavier/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusteron-media-driver-0.1.162/aeron" "-B" "/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-media-driver-728cef9bc73d8d64/out/build" "-DCMAKE_OSX_ARCHITECTURES=arm64" "-DCMAKE_CXX_FLAGS_RELEASE=-O3 -DNDEBUG -march=native -funroll-loops -flto" "-DCMAKE_C_FLAGS_RELEASE=-O3 -DNDEBUG -march=native -funroll-loops -flto" "-DBUILD_AERON_DRIVER=ON" "-DBUILD_AERON_ARCHIVE_API=OFF" "-DAERON_TESTS=OFF" "-DAERON_BUILD_SAMPLES=OFF" "-DAERON_BUILD_DOCUMENTATION=OFF" "-DCMAKE_INSTALL_PREFIX=/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-media-driver-728cef9bc73d8d64/out" "-DCMAKE_C_FLAGS= -ffunction-sections -fdata-sections -fPIC --target=arm64-apple-macosx -mmacosx-version-min=26.2 -w" "-DCMAKE_C_COMPILER=/usr/bin/cc" "-DCMAKE_CXX_FLAGS= -ffunction-sections -fdata-sections -fPIC --target=arm64-apple-macosx -mmacosx-version-min=26.2 -w" "-DCMAKE_CXX_COMPILER=/usr/bin/c++" "-DCMAKE_ASM_FLAGS= -ffunction-sections -fdata-sections -fPIC --target=arm64-apple-macosx -mmacosx-version-min=26.2 -w" "-DCMAKE_ASM_COMPILER=/usr/bin/cc" "-DCMAKE_BUILD_TYPE=Release"
+fatal: not a git repository (or any of the parent directories): .git
+fatal: not a git repository (or any of the parent directories): .git
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_ASM_COMPILER
+    CMAKE_ASM_FLAGS
+
+
+running: cd "/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-media-driver-728cef9bc73d8d64/out/build" && LC_ALL="C" "cmake" "--build" "/Users/xavier/Code/poc_rust_rusteron/target/release/build/rusteron-media-driver-728cef9bc73d8d64/out/build" "--target" "aeron_driver_static" "--config" "Release" "--parallel" "10"

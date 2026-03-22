@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/xavier/Code/poc_rust_rusteron/target/debug/build/rusteron-media-driver-d12b43ed91572812/out/build/cmake_install.cmake",
+		"/Users/xavier/Code/poc_rust_rusteron/target/debug/build/rusteron-media-driver-d12b43ed91572812/out/build/aeron-client/src/main/cpp_wrapper/cmake_install.cmake",
+		"/Users/xavier/Code/poc_rust_rusteron/target/debug/build/rusteron-media-driver-d12b43ed91572812/out/build/aeron-client/src/main/c/cmake_install.cmake",
+		"/Users/xavier/Code/poc_rust_rusteron/target/debug/build/rusteron-media-driver-d12b43ed91572812/out/build/aeron-driver/src/main/c/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
