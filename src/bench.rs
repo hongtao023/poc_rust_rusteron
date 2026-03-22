@@ -57,12 +57,15 @@ pub fn run_bench(
             dir: driver_dir,
         };
 
+        let client_configs = vec![server::ClientConfig {
+            reply_endpoint: srv_reply_endpoint,
+            stream_id_recv: stream_id_send,
+            stream_id_send: stream_id_recv,
+        }];
         server::run_server(
             &server_driver,
             &srv_endpoint,
-            &srv_reply_endpoint,
-            stream_id_send,
-            stream_id_recv,
+            &client_configs,
             server_stop_clone,
         ).map_err(|e| -> Box<dyn std::error::Error + Send + Sync> {
             e.to_string().into()

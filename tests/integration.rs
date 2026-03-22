@@ -42,12 +42,15 @@ fn ping_pong_echo() {
             handle: None,
             dir: drv_dir,
         };
+        let client_configs = vec![server::ClientConfig {
+            reply_endpoint: rep,
+            stream_id_recv: stream_send,
+            stream_id_send: stream_recv,
+        }];
         server::run_server(
             &server_driver,
             &ep,
-            &rep,
-            stream_send,
-            stream_recv,
+            &client_configs,
             server_stop_clone,
         )
         .expect("Server failed");
@@ -143,12 +146,15 @@ fn throughput_counting() {
             handle: None,
             dir: drv_dir,
         };
+        let client_configs = vec![server::ClientConfig {
+            reply_endpoint: rep,
+            stream_id_recv: stream_send,
+            stream_id_send: stream_recv,
+        }];
         server::run_server(
             &server_driver,
             &ep,
-            &rep,
-            stream_send,
-            stream_recv,
+            &client_configs,
             server_stop_clone,
         )
         .expect("Server failed");
