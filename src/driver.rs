@@ -110,17 +110,36 @@ pub fn add_publication(
     endpoint: &str,
     stream_id: i32,
 ) -> Result<AeronPublication, Box<dyn std::error::Error>> {
+    add_publication_inner(aeron, endpoint, stream_id, true)
+}
+
+/// 创建 Publication，可选择是否等待对端连接
+pub fn add_publication_no_wait(
+    aeron: &Aeron,
+    endpoint: &str,
+    stream_id: i32,
+) -> Result<AeronPublication, Box<dyn std::error::Error>> {
+    add_publication_inner(aeron, endpoint, stream_id, false)
+}
+
+fn add_publication_inner(
+    aeron: &Aeron,
+    endpoint: &str,
+    stream_id: i32,
+    wait_connected: bool,
+) -> Result<AeronPublication, Box<dyn std::error::Error>> {
     let uri = format!("aeron:udp?endpoint={}", endpoint);
     let c_uri = CString::new(uri)?;
     let publication = aeron.add_publication(&c_uri, stream_id, CONNECT_TIMEOUT)?;
 
-    // 自旋等待，直到对端的 Subscription 也建立连接
-    let start = Instant::now();
-    while !publication.is_connected() {
-        if start.elapsed() > CONNECT_TIMEOUT {
-            return Err("Publication connection timeout".into());
+    if wait_connected {
+        let start = Instant::now();
+        while !publication.is_connected() {
+            if start.elapsed() > CONNECT_TIMEOUT {
+                return Err("Publication connection timeout".into());
+            }
+            std::hint::spin_loop();
         }
-        std::hint::spin_loop();
     }
     Ok(publication)
 }
@@ -136,6 +155,24 @@ pub fn add_subscription(
     endpoint: &str,
     stream_id: i32,
 ) -> Result<AeronSubscription, Box<dyn std::error::Error>> {
+    add_subscription_inner(aeron, endpoint, stream_id, true)
+}
+
+/// 创建 Subscription，不等待对端连接
+pub fn add_subscription_no_wait(
+    aeron: &Aeron,
+    endpoint: &str,
+    stream_id: i32,
+) -> Result<AeronSubscription, Box<dyn std::error::Error>> {
+    add_subscription_inner(aeron, endpoint, stream_id, false)
+}
+
+fn add_subscription_inner(
+    aeron: &Aeron,
+    endpoint: &str,
+    stream_id: i32,
+    wait_connected: bool,
+) -> Result<AeronSubscription, Box<dyn std::error::Error>> {
     let uri = format!("aeron:udp?endpoint={}", endpoint);
     let c_uri = CString::new(uri)?;
     let subscription =
@@ -147,13 +184,14 @@ pub fn add_subscription(
             CONNECT_TIMEOUT,
         )?;
 
-    // 自旋等待连接建立
-    let start = Instant::now();
-    while !subscription.is_connected() {
-        if start.elapsed() > CONNECT_TIMEOUT {
-            return Err("Subscription connection timeout".into());
+    if wait_connected {
+        let start = Instant::now();
+        while !subscription.is_connected() {
+            if start.elapsed() > CONNECT_TIMEOUT {
+                return Err("Subscription connection timeout".into());
+            }
+            std::hint::spin_loop();
         }
-        std::hint::spin_loop();
     }
     Ok(subscription)
 }

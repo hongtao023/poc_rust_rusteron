@@ -117,8 +117,8 @@ pub fn run_server(
     let aeron = driver.connect()?;
 
     // 创建 Subscription（接收 client→server 消息）和 Publication（发送 server→client 回复）
-    let subscription = driver::add_subscription(&aeron, endpoint, stream_id_recv)?;
-    let publication = driver::add_publication(&aeron, reply_endpoint, stream_id_send)?;
+    let subscription = driver::add_subscription_no_wait(&aeron, endpoint, stream_id_recv)?;
+    let publication = driver::add_publication_no_wait(&aeron, reply_endpoint, stream_id_send)?;
 
     println!("Server listening on {} (stream {})", endpoint, stream_id_recv);
     println!("Server replying on {} (stream {})", reply_endpoint, stream_id_send);
