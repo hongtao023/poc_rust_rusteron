@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
+    package="bench_protocol"
+    id="1"
+    version="1"
+    semanticVersion="1.0.0"
+    description="Rusteron Benchmark Protocol"
+    byteOrder="littleEndian">
+
+    <types>
+        <composite name="messageHeader" description="Message identifer and length of message root">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="templateId"  primitiveType="uint16"/>
+            <type name="schemaId"    primitiveType="uint16"/>
+            <type name="version"     primitiveType="uint16"/>
+        </composite>
+
+        <enum name="MsgType" encodingType="uint8" description="Message type identifier">
+            <validValue name="Ping"    description="Latency probe request">1</validValue>
+            <validValue name="Pong"    description="Latency probe response">2</validValue>
+            <validValue name="Data"    description="Throughput test data">3</validValue>
+            <validValue name="Control" description="Control command">4</validValue>
+        </enum>
+
+        <enum name="ControlCode" encodingType="uint8" description="Control command code">
+            <validValue name="None"            description="No control action">0</validValue>
+            <validValue name="StartThroughput" description="Begin throughput counting">1</validValue>
+            <validValue name="StopThroughput"  description="Stop throughput counting">2</validValue>
+            <validValue name="ReportRequest"   description="Request throughput report">3</validValue>
+            <validValue name="ReportResponse"  description="Throughput report response">4</validValue>
+        </enum>
+    </types>
+
+    <!-- Ping/Pong message for latency measurement -->
+    <sbe:message name="PingPong" id="1" description="Ping or Pong latency probe message">
+        <field name="msgType"     id="1" type="MsgType"  description="Ping or Pong"/>
+        <field name="sequence"    id="2" type="uint32"   description="Sequence number for matching"/>
+        <field name="timestampNs" id="3" type="uint64"   description="Send timestamp in nanoseconds"/>
+    </sbe:message>
+
+    <!-- Data message for throughput testing -->
+    <sbe:message name="DataMessage" id="2" description="Throughput test data message">
+        <field name="sequence"    id="1" type="uint32"   description="Sequence number"/>
+        <field name="timestampNs" id="2" type="uint64"   description="Timestamp in nanoseconds"/>
+    </sbe:message>
+
+    <!-- Control message -->
+    <sbe:message name="ControlMessage" id="3" description="Control command message">
+        <field name="controlCode" id="1" type="ControlCode" description="Control action"/>
+        <field name="sequence"    id="2" type="uint32"      description="Sequence number"/>
+        <field name="value"       id="3" type="uint64"      description="Payload value (e.g. throughput count)"/>
+    </sbe:message>
+
+</sbe:messageSchema>

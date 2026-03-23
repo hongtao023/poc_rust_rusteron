@@ -17,3 +17,7 @@ rusteron-media-driver = { version = "0.1", features = ["static"] }
 clap = { version = "4", features = ["derive"] }
 hdrhistogram = "7"
 ctrlc = "3"
+ironsbe-core = "0.2.0"
+
+[build-dependencies]
+ironsbe-codegen = "0.2.0"
